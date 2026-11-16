@@ -1,43 +1,48 @@
-# GTA VI Countdown — 9:16 Vertical Stream Edition 📱🎮
+# GTA VI Countdown — Ultra Gaming Electric Edition ⚡🎮
 
-A cinematic, modern, high-performance standalone countdown landing page for **Grand Theft Auto VI**, scheduled for worldwide release on **19 November 2026, 00:00 (Local Time)**.
+A high-octane, cinematic 9:16 vertical stream countdown landing page for **Grand Theft Auto VI**, scheduled for worldwide release on **19 November 2026, 00:00 (Local Time)**.
 
-Custom-engineered for **Ultra Gaming Live** specifically for **9:16 vertical streams** (YouTube Shorts Live, TikTok Live, Instagram Live, and OBS Vertical).
+Custom-themed for **Ultra Gaming Live** matching the official **ULTRA GAMING** Electric Blue, Plasma Lightning, and Chiseled Chrome aesthetic.
 
 ---
 
-## 📱 9:16 Vertical Stream Optimizations
+## ⚡ The ULTRA GAMING Theme
 
-1. **2x2 High-Impact Countdown Grid:**
-   - Stacked into a **2x2 layout** (`[DAYS | HOURS]` on top, `[MINUTES | SECONDS]` below) with huge, glowing neon digits.
-   - Designed to be easily readable on mobile phone screens and compact live stream feeds.
+1. **Official Brand Crest:**
+   - Prominently showcases the official **ULTRA GAMING** emblem at the top with an electric-cyan aura and metallic bevel.
 
-2. **Mobile Live Chat Safe Zone:**
-   - Thoughtfully padded and proportioned so that YouTube Shorts Live / TikTok bottom chat overlays and comment boxes do **not** block the countdown numbers.
-   - Includes a toggleable **Safe Zone Guide** (click `💬 Safe Zone` or press `G`) to preview where mobile comments float.
+2. **Electric Blue & Chiseled Chrome Palette:**
+   - **Colors:** Deep Void Black (`#02050e`), Electric Cyan (`#00f0ff`), Plasma Blue (`#0084ff`), and Chiseled Ice Chrome (`#ffffff` to `#9bc5f0`).
+   - Countdown numbers styled in cracked chiseled chrome with intense cyan/blue drop shadows.
+   - Frosted glass cards with animated electric arc borders.
 
-3. **Livestreamer Controls & Hotkeys:**
-   - **`H` (Clean UI):** Hides buttons and footer links for an ultra-clean broadcast overlay in OBS.
-   - **`B` (Frame Toggle):** Toggles between a phone bezel frame (great for previewing on a 16:9 desktop monitor) and borderless full-bleed mode.
-   - **`G` (Safe Zone):** Toggles chat overlay guides.
-   - **`Left / Right Arrow` or `Spacebar`:** Manually skip between background slideshow images.
-   - **`🔊 Audio`:** Built-in ambient 80s Miami synthwave pad sound generator using zero-dependency Web Audio API.
+3. **Dynamic Canvas VFX:**
+   - Floating diamond-shaped ice crystal shards and glowing electric sparks radiating upwards.
+   - Background lightning branches subtly flashing across the screen.
 
-4. **Cinematic 5-Second Background Slideshow:**
-   - Automatically crossfades every 5 seconds through high-res artworks in the `images/` folder.
-   - Vertical Ken Burns pan & zoom (`scale(1.0)` to `scale(1.09)`).
-   - High-contrast dark vignette overlay ensuring maximum legibility of the countdown.
+4. **9:16 Vertical Stream Architecture:**
+   - **2x2 Grid:** `[DAYS | HOURS]` and `[MINUTES | SECONDS]` with massive digits legible on mobile feeds (YouTube Shorts Live / TikTok Live).
+   - **Live Chat Safe Zone:** Pre-padded so viewer comments never obscure the countdown. Toggle with `G`.
+   - **OBS Clean Mode:** Press **`H`** to hide all UI buttons and navigation for a pure livestream overlay.
+   - **Phone Frame Toggle:** Press **`B`** to toggle between a smartphone preview frame and borderless full-bleed display.
+
+5. **Cinematic Background Slideshow:**
+   - Rotates through the official Ultra Gaming wallpaper and GTA VI high-resolution artworks every 5 seconds.
+   - Supports dragging & dropping custom images onto the screen or clicking **📁 Images**.
+
+6. **Electric Synth Atmosphere:**
+   - Built-in Web Audio API analog synth playing an energetic gaming power chord drone (zero external audio files needed). Toggle with **🔊 Audio**.
 
 ---
 
 ## 🎥 OBS Studio / Streamlabs Setup (9:16 Vertical)
 
-1. In OBS, set your canvas to **1080 x 1920** (or use the OBS Vertical plugin / Aitum Vertical).
-2. Add a new **Browser Source**:
-   - **URL / Path:** `file:///c:/Users/Om/Documents/gta6/index.html`
+1. Set your canvas to **1080 x 1920** (or use the OBS Vertical plugin).
+2. Add a **Browser Source**:
+   - **URL / Local File:** `file:///c:/Users/Om/Documents/gta6/index.html`
    - **Width:** `1080`
    - **Height:** `1920`
-3. Optional: Press **`H`** inside the browser window or interact with the source to activate **Clean Mode**.
+3. Press **`H`** on the interactive preview to activate **Clean Mode**.
 
 ---
 
