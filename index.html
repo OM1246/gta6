@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GTA VI Countdown | 9:16 Vertical Stream | Ultra Gaming Live</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="images/gta-6-logo-official-artwork-1600.jpg">
+
+  <!-- Google Fonts for cinematic gaming typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,700;0,900;1,900&family=Orbitron:wght@600;700;900&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       CSS VARIABLES & 9:16 VERTICAL STREAM THEME
+       ========================================================= */
+    :root {
+      --bg-dark: #07030e;
+      --neon-pink: #ff007f;
+      --neon-pink-glow: rgba(255, 0, 127, 0.65);
+      --neon-orange: #ff7700;
+      --neon-orange-glow: rgba(255, 119, 0, 0.65);
+      --neon-cyan: #00f0ff;
+      --neon-cyan-glow: rgba(0, 240, 255, 0.5);
+      --neon-purple: #9d00ff;
+      --glass-bg: rgba(14, 6, 28, 0.72);
+      --glass-border: rgba(255, 0, 127, 0.38);
+      --font-display: 'Orbitron', 'Montserrat', sans-serif;
+      --font-body: 'Rajdhani', sans-serif;
+      --font-heading: 'Montserrat', sans-serif;
+      
+      /* Vertical Stage Dimensions */
+      --vertical-max-width: 520px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      font-family: var(--font-body);
+      position: relative;
+    }
+
+    /* =========================================================
+       BACKGROUND CINEMATIC SLIDESHOW & OVERLAYS
+       ========================================================= */
+    #slideshow-container {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      background: #000;
+      pointer-events: none;
+    }
+
+    .slide {
+      position: absolute;
+      inset: -5%;
+      width: 110%;
+      height: 110%;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: scale(1);
+      will-change: transform, opacity;
+    }
+
+    .slide.active {
+      opacity: 1;
+      animation: kenBurnsVertical 6.5s ease-out forwards;
+    }
+
+    @keyframes kenBurnsVertical {
+      0% {
+        transform: scale(1.0) translateY(0);
+      }
+      100% {
+        transform: scale(1.09) translateY(-1.5%);
+      }
+    }
+
+    /* Multi-layered dark vignette optimized for vertical readability */
+    .cinematic-vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: 
+        radial-gradient(ellipse at center, rgba(11, 4, 22, 0.4) 0%, rgba(6, 2, 12, 0.85) 70%, rgba(3, 1, 6, 0.98) 100%),
+        linear-gradient(180deg, rgba(7, 3, 14, 0.92) 0%, rgba(13, 5, 25, 0.4) 25%, rgba(13, 5, 25, 0.4) 75%, rgba(5, 2, 10, 0.96) 100%);
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.14) 0px,
+        rgba(0, 0, 0, 0.14) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      opacity: 0.55;
+    }
+
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* =========================================================
+       9:16 VERTICAL STAGE & OBS CANVAS WRAPPER
+       ========================================================= */
+    .stage-outer {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 0;
+    }
+
+    /* Desktop phone framing mode (when previewed on a wide 16:9 monitor) */
+    body.show-frame .stage-outer {
+      padding: 1.5rem 0;
+    }
+
+    body.show-frame .vertical-stage {
+      border: 2px solid rgba(255, 0, 127, 0.4);
+      border-radius: 36px;
+      box-shadow: 
+        0 0 50px rgba(0, 0, 0, 0.9),
+        0 0 40px var(--neon-pink-glow);
+      background: rgba(8, 3, 16, 0.5);
+    }
+
+    /* The core 9:16 canvas container */
+    .vertical-stage {
+      width: 100%;
+      max-width: var(--vertical-max-width);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.2rem 2.2rem 1.2rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* =========================================================
+       TOP HEADER & BRANDING (9:16 OPTIMIZED)
+       ========================================================= */
+    .top-header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 0.5rem;
+    }
+
+    /* Live Channel Badge */
+    .stream-brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(14, 6, 28, 0.75);
+      padding: 6px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 0, 127, 0.45);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.25);
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #ff0055;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
+      animation: pulseLive 1.4s infinite;
+    }
+
+    @keyframes pulseLive {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.7; }
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffffff, #ff7700, #ff007f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stream-badge {
+      background: #ff0055;
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+
+    /* Streamer Controls Tool Bar */
+    .stream-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      margin-top: 2px;
+    }
+
+    .action-btn {
+      background: rgba(20, 8, 38, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 6px 11px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 0, 127, 0.25);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 12px var(--neon-pink-glow);
+    }
+
+    .action-btn.active {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.22);
+      box-shadow: 0 0 12px var(--neon-cyan-glow);
+    }
+
+    /* =========================================================
+       MAIN TITLES & LOGO (9:16 HERO)
+       ========================================================= */
+    .hero-titles {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .top-eyebrow {
+      font-family: var(--font-heading);
+      font-size: clamp(0.85rem, 3.4vw, 1.1rem);
+      font-weight: 800;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 15px var(--neon-cyan-glow), 0 0 25px rgba(0, 240, 255, 0.3);
+      margin-bottom: 0.35rem;
+    }
+
+    .main-title-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .title-gta {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 7.5vw, 2.7rem);
+      font-weight: 900;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1;
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+
+    .title-vi-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      line-height: 1;
+    }
+
+    .vi-mark {
+      font-family: 'Times New Roman', serif;
+      font-size: clamp(3.2rem, 14vw, 4.8rem);
+      font-weight: 900;
+      line-height: 0.95;
+      background: linear-gradient(180deg, #ff007f 0%, #ff7700 80%, #ffcc00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 25px rgba(255, 0, 127, 0.85));
+      animation: glowPulse 3.5s infinite alternate ease-in-out;
+    }
+
+    @keyframes glowPulse {
+      0% {
+        filter: drop-shadow(0 0 20px rgba(255, 0, 127, 0.6)) drop-shadow(0 0 35px rgba(255, 119, 0, 0.3));
+      }
+      100% {
+        filter: drop-shadow(0 0 32px rgba(255, 0, 127, 0.95)) drop-shadow(0 0 55px rgba(255, 119, 0, 0.6));
+      }
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-heading);
+      font-size: clamp(0.7rem, 2.6vw, 0.92rem);
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 0.6rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .hero-subtitle::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-pink), var(--neon-orange), transparent);
+    }
+
+    /* =========================================================
+       9:16 2x2 COUNTDOWN GRID - MASSIVE DIGITS FOR MOBILE LIVE
+       ========================================================= */
+    .countdown-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0.8rem 0;
+    }
+
+    .countdown-grid-2x2 {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .time-card {
+      position: relative;
+      background: var(--glass-bg);
+      border-radius: 20px;
+      padding: clamp(1.3rem, 5vw, 2.2rem) 0.8rem;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.75),
+        inset 0 0 20px rgba(255, 0, 127, 0.15);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .time-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.85),
+        0 0 30px var(--neon-pink-glow),
+        inset 0 0 25px rgba(255, 0, 127, 0.25);
+    }
+
+    /* Glowing animated gradient borders */
+    .time-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: linear-gradient(
+        135deg, 
+        rgba(255, 0, 127, 0.9) 0%, 
+        rgba(255, 119, 0, 0.8) 35%, 
+        rgba(157, 0, 255, 0.6) 70%, 
+        rgba(0, 240, 255, 0.9) 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .time-number {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 14vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1;
+      color: #ffffff;
+      text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.65),
+        0 0 35px var(--neon-pink-glow);
+      margin-bottom: 0.35rem;
+      letter-spacing: -1px;
+      will-change: transform;
+      transition: transform 0.12s ease-out;
+    }
+
+    .time-number.tick {
+      transform: scale(1.07);
+      text-shadow: 
+        0 0 25px #ffffff,
+        0 0 45px var(--neon-cyan),
+        0 0 65px var(--neon-pink);
+    }
+
+    .time-label {
+      font-family: var(--font-heading);
+      font-size: clamp(0.75rem, 3vw, 0.95rem);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 10px var(--neon-cyan-glow);
+    }
+
+    /* Target Date Pill */
+    .target-date-pill {
+      margin-top: 1.1rem;
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(14, 6, 28, 0.78);
+      border: 1px solid rgba(255, 119, 0, 0.4);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 20px rgba(255, 119, 0, 0.2);
+    }
+
+    .pill-icon {
+      color: var(--neon-orange);
+      font-size: 1rem;
+    }
+
+    .pill-text {
+      font-family: var(--font-body);
+      font-size: clamp(0.85rem, 3.2vw, 1.05rem);
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .pill-text strong {
+      color: var(--neon-orange);
+      text-shadow: 0 0 10px var(--neon-orange-glow);
+    }
+
+    /* =========================================================
+       ZERO CELEBRATION SCREEN
+       ========================================================= */
+    #celebration-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 2rem 1rem;
+      width: 100%;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .celebration-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4rem, 10vw, 4.2rem);
+      font-weight: 900;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      background: linear-gradient(90deg, #ff007f, #ffcc00, #00f0ff, #ff007f);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowGlow 3s ease infinite;
+      filter: drop-shadow(0 0 30px rgba(255, 0, 127, 0.9));
+      margin-bottom: 1rem;
+    }
+
+    @keyframes rainbowGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .celebration-sub {
+      font-family: var(--font-heading);
+      font-size: clamp(1rem, 4vw, 1.35rem);
+      letter-spacing: 3px;
+      color: #fff;
+      text-shadow: 0 0 18px var(--neon-cyan);
+    }
+
+    /* =========================================================
+       BOTTOM SECTION & SAFE ZONES (FOR CHAT / SHORTS)
+       ========================================================= */
+    .bottom-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .cinematic-tagline {
+      font-family: var(--font-heading);
+      font-size: clamp(0.78rem, 2.9vw, 1.05rem);
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ff7700, #ff007f, #00f0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* Slideshow Dots Indicator */
+    .slide-dot-nav {
+      display: flex;
+      gap: 7px;
+      margin: 4px 0;
+    }
+
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .slide-dot.active {
+      background: var(--neon-pink);
+      box-shadow: 0 0 10px var(--neon-pink);
+      transform: scale(1.3);
+      width: 16px;
+      border-radius: 4px;
+    }
+
+    .footer-bar {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 1px;
+    }
+
+    .footer-left span {
+      color: var(--neon-pink);
+      font-weight: 700;
+    }
+
+    /* Live Chat Safe Zone Overlay Guide (Optional preview) */
+    .chat-safe-zone {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 25%;
+      border: 1px dashed rgba(0, 240, 255, 0.5);
+      background: rgba(0, 240, 255, 0.06);
+      pointer-events: none;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--neon-cyan);
+      border-radius: 12px 12px 0 0;
+    }
+
+    body.show-guide .chat-safe-zone {
+      display: flex;
+    }
+
+    /* =========================================================
+       CLEAN STREAM BROADCAST MODE (Press H)
+       ========================================================= */
+    body.stream-mode .stream-toolbar,
+    body.stream-mode .footer-bar,
+    body.stream-mode .slide-dot-nav {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    body.stream-mode .vertical-stage {
+      justify-content: space-around;
+      padding: 1.5rem 1rem;
+    }
+
+    /* Quick Notification Toast */
+    #stream-toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(14, 6, 28, 0.95);
+      border: 1px solid var(--neon-pink);
+      color: #ffffff;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 0 25px var(--neon-pink-glow);
+      z-index: 100;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    #stream-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #image-folder-input {
+      display: none;
+    }
+  </style>
+</head>
+<body class="show-frame">
+
+  <!-- Fullscreen Cinematic Slideshow Background -->
+  <div id="slideshow-container">
+    <div id="slide-layer-1" class="slide active"></div>
+    <div id="slide-layer-2" class="slide"></div>
+  </div>
+
+  <!-- Multi-layered dark vignette & scanlines -->
+  <div class="cinematic-vignette"></div>
+  <div class="scanlines"></div>
+
+  <!-- Floating neon ember particles canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Notification Toast for Streamers -->
+  <div id="stream-toast">Vertical 9:16 Mode Ready</div>
+
+  <!-- Hidden file input for custom image uploads -->
+  <input type="file" id="image-folder-input" multiple accept="image/jpeg,image/png,image/webp,image/gif" />
+
+  <!-- 9:16 Vertical Stream Canvas Outer -->
+  <div class="stage-outer">
+    
+    <main class="vertical-stage">
+
+      <!-- Top Header & Live Branding -->
+      <header class="top-header">
+        
+        <div class="stream-brand-pill">
+          <div class="live-dot"></div>
+          <span class="stream-badge">LIVE 9:16</span>
+          <span class="brand-name">ULTRA GAMING LIVE</span>
+        </div>
+
+        <!-- Streamer Action Controls -->
+        <div class="stream-toolbar">
+          <button class="action-btn" id="btn-audio" title="Toggle Vice City Ambient Synthwave Drone">
+            <span id="audio-icon">🔊</span> <span id="audio-text">Audio</span>
+          </button>
+
+          <button class="action-btn" id="btn-stream-mode" title="Clean Stream Mode for OBS (Key: H)">
+            <span>🎥</span> <span>Clean UI</span>
+          </button>
+
+          <button class="action-btn active" id="btn-frame-mode" title="Toggle 9:16 Phone Frame Border (Key: B)">
+            <span>📱</span> <span>9:16 Frame</span>
+          </button>
+
+          <button class="action-btn" id="btn-load-images" title="Load custom images or folder">
+            <span>📁</span> <span>Images</span>
+          </button>
+
+          <button class="action-btn" id="btn-guide-mode" title="Toggle Mobile Live Chat Safe Zone Guide">
+            <span>💬</span> <span>Safe Zone</span>
+          </button>
+        </div>
+
+      </header>
+
+      <!-- Hero Header Section -->
+      <div class="hero-titles">
+        <p class="top-eyebrow">THE WAIT IS ALMOST OVER</p>
+        
+        <div class="main-title-container">
+          <h1 class="title-gta">GRAND THEFT AUTO</h1>
+          <div class="title-vi-row">
+            <span class="vi-mark">VI</span>
+          </div>
+        </div>
+
+        <p class="hero-subtitle">ONE CITY. MILLIONS OF STORIES. ONE LEGEND.</p>
+      </div>
+
+      <!-- 9:16 2x2 COUNTDOWN GRID -->
+      <section class="countdown-section" id="countdown-wrapper">
+        <div class="countdown-grid-2x2">
+          
+          <!-- DAYS -->
+          <div class="time-card">
+            <div class="time-number" id="days">000</div>
+            <div class="time-label">DAYS</div>
+          </div>
+
+          <!-- HOURS -->
+          <div class="time-card">
+            <div class="time-number" id="hours">00</div>
+            <div class="time-label">HOURS</div>
+          </div>
+
+          <!-- MINUTES -->
+          <div class="time-card">
+            <div class="time-number" id="minutes">00</div>
+            <div class="time-label">MINUTES</div>
+          </div>
+
+          <!-- SECONDS -->
+          <div class="time-card">
+            <div class="time-number" id="seconds">00</div>
+            <div class="time-label">SECONDS</div>
+          </div>
+
+        </div>
+
+        <!-- Target Date Pill -->
+        <div class="target-date-pill">
+          <span class="pill-icon">⚡</span>
+          <span class="pill-text">RELEASE: <strong>19 NOV 2026 • 00:00 LOCAL</strong></span>
+        </div>
+      </section>
+
+      <!-- Celebration Screen (Triggered at Zero) -->
+      <div id="celebration-screen">
+        <h2 class="celebration-title">GTA VI IS FINALLY HERE!</h2>
+        <p class="celebration-sub">WELCOME TO VICE CITY • OUT NOW</p>
+      </div>
+
+      <!-- Bottom Tagline, Slideshow Dots & Footer -->
+      <footer class="bottom-section">
+        
+        <p class="cinematic-tagline">THE NEXT CHAPTER OF GRAND THEFT AUTO BEGINS.</p>
+
+        <!-- Slideshow Dots -->
+        <div class="slide-dot-nav" id="slide-indicators"></div>
+
+        <div class="footer-bar">
+          <div class="footer-left">
+            Made for GTA VI fans | <span>Ultra Gaming Live</span>
+          </div>
+          <div>ROCKSTAR GAMES • VICE CITY</div>
+        </div>
+
+      </footer>
+
+      <!-- Mobile Live Chat Safe Zone Overlay (Toggleable preview for YouTube Shorts Live / TikTok) -->
+      <div class="chat-safe-zone">
+        <span>💬 LIVE CHAT & COMMENTS SAFE ZONE (CLEAN AIRSPACE)</span>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT LOGIC
+       ========================================================= -->
+  <script>
+    /**
+     * GTA VI 9:16 VERTICAL STREAM ENGINE
+     * Designed for Ultra Gaming Live (OBS Vertical, YouTube Shorts Live, TikTok Live)
+     */
+
+    // 1. CONFIGURATION & STATE
+    const CONFIG = {
+      // Target Release Date: 19 November 2026, 00:00:00 (Local Time)
+      targetDate: new Date(2026, 10, 19, 0, 0, 0), // Month 10 = November
+      slideIntervalMs: 5000,
+      
+      // Default official high-res artworks in the "images" folder
+      defaultImages: [
+        'images/gta-6-cover-art-official-landscape-1600.jpg',
+        'images/gta-6-artwork-jason-and-lucia-03-withlogos-1600.jpg',
+        'images/gta-6-artwork-jason-and-lucia-robbery-with-logo-1600.jpg',
+        'images/gta-6-first-official-artwork-1600.jpg',
+        'images/jasonandlucia-02-withlogos-1600.jpg',
+        'images/gta-6-logo-official-artwork-1600.jpg'
+      ]
+    };
+
+    let imageList = [...CONFIG.defaultImages];
+    let currentSlideIndex = 0;
+    let activeLayer = 1;
+    let slideTimer = null;
+    let isCelebrated = false;
+
+    // Elements
+    const elDays = document.getElementById('days');
+    const elHours = document.getElementById('hours');
+    const elMinutes = document.getElementById('minutes');
+    const elSeconds = document.getElementById('seconds');
+    const countdownWrapper = document.getElementById('countdown-wrapper');
+    const celebrationScreen = document.getElementById('celebration-screen');
+    const slideLayer1 = document.getElementById('slide-layer-1');
+    const slideLayer2 = document.getElementById('slide-layer-2');
+    const slideIndicators = document.getElementById('slide-indicators');
+    const streamToast = document.getElementById('stream-toast');
+
+    // =========================================================
+    // 2. COUNTDOWN TIMER LOGIC
+    // =========================================================
+    function pad(n, length = 2) {
+      return String(n).padStart(length, '0');
+    }
+
+    function triggerTick(element) {
+      element.classList.remove('tick');
+      void element.offsetWidth; // Force CSS reflow
+      element.classList.add('tick');
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = CONFIG.targetDate.getTime() - now;
+
+      if (difference <= 0) {
+        if (!isCelebrated) {
+          isCelebrated = true;
+          countdownWrapper.style.display = 'none';
+          celebrationScreen.style.display = 'flex';
+          showToast('🎉 GTA VI IS FINALLY HERE!');
+          createCelebrationExplosion();
+        }
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      const formattedDays = pad(days, 3);
+      const formattedHours = pad(hours, 2);
+      const formattedMinutes = pad(minutes, 2);
+      const formattedSeconds = pad(seconds, 2);
+
+      if (elDays.textContent !== formattedDays) {
+        elDays.textContent = formattedDays;
+        triggerTick(elDays);
+      }
+      if (elHours.textContent !== formattedHours) {
+        elHours.textContent = formattedHours;
+        triggerTick(elHours);
+      }
+      if (elMinutes.textContent !== formattedMinutes) {
+        elMinutes.textContent = formattedMinutes;
+        triggerTick(elMinutes);
+      }
+      if (elSeconds.textContent !== formattedSeconds) {
+        elSeconds.textContent = formattedSeconds;
+        triggerTick(elSeconds);
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // =========================================================
+    // 3. CINEMATIC BACKGROUND SLIDESHOW WITH 9:16 KEN BURNS
+    // =========================================================
+    function buildSlideDots() {
+      slideIndicators.innerHTML = '';
+      imageList.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = `slide-dot ${idx === currentSlideIndex ? 'active' : ''}`;
+        dot.addEventListener('click', () => {
+          goToSlide(idx);
+          resetSlideTimer();
+        });
+        slideIndicators.appendChild(dot);
+      });
+    }
+
+    function updateSlideDots() {
+      const dots = slideIndicators.querySelectorAll('.slide-dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlideIndex);
+      });
+    }
+
+    function loadInitialSlide() {
+      if (imageList.length === 0) return;
+      slideLayer1.style.backgroundImage = `url("${imageList[0]}")`;
+      slideLayer1.classList.add('active');
+      buildSlideDots();
+    }
+
+    function goToSlide(nextIndex) {
+      if (imageList.length === 0) return;
+      currentSlideIndex = (nextIndex + imageList.length) % imageList.length;
+
+      const incomingLayer = activeLayer === 1 ? slideLayer2 : slideLayer1;
+      const outgoingLayer = activeLayer === 1 ? slideLayer1 : slideLayer2;
+
+      incomingLayer.style.backgroundImage = `url("${imageList[currentSlideIndex]}")`;
+
+      incomingLayer.classList.remove('active');
+      void incomingLayer.offsetWidth;
+      incomingLayer.classList.add('active');
+
+      outgoingLayer.classList.remove('active');
+      activeLayer = activeLayer === 1 ? 2 : 1;
+      updateSlideDots();
+    }
+
+    function nextSlide() {
+      goToSlide(currentSlideIndex + 1);
+    }
+
+    function resetSlideTimer() {
+      if (slideTimer) clearInterval(slideTimer);
+      slideTimer = setInterval(nextSlide, CONFIG.slideIntervalMs);
+    }
+
+    loadInitialSlide();
+    resetSlideTimer();
+
+    // =========================================================
+    // 4. IMAGE FOLDER / DRAG & DROP CUSTOM LOADER
+    // =========================================================
+    const imageInput = document.getElementById('image-folder-input');
+    const btnLoadImages = document.getElementById('btn-load-images');
+
+    btnLoadImages.addEventListener('click', () => {
+      imageInput.click();
+    });
+
+    imageInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+      const validImages = files.filter(f => f.type.startsWith('image/'));
+
+      if (validImages.length > 0) {
+        const newUrls = validImages.map(file => URL.createObjectURL(file));
+        imageList = newUrls;
+        currentSlideIndex = 0;
+        loadInitialSlide();
+        resetSlideTimer();
+        showToast(`Loaded ${validImages.length} custom images!`);
+      }
+    });
+
+    window.addEventListener('dragover', (e) => e.preventDefault());
+    window.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const files = Array.from(e.dataTransfer.files);
+      const validImages = files.filter(f => f.type.startsWith('image/'));
+      if (validImages.length > 0) {
+        const newUrls = validImages.map(file => URL.createObjectURL(file));
+        imageList = newUrls;
+        currentSlideIndex = 0;
+        loadInitialSlide();
+        resetSlideTimer();
+        showToast(`Imported ${validImages.length} images via drag & drop!`);
+      }
+    });
+
+    // =========================================================
+    // 5. FLOATING PARTICLES CANVAS
+    // =========================================================
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 20;
+        this.size = Math.random() * 2.8 + 0.8;
+        this.speedY = -(Math.random() * 0.9 + 0.35);
+        this.speedX = (Math.random() - 0.5) * 0.6;
+        this.opacity = Math.random() * 0.7 + 0.2;
+        this.decay = Math.random() * 0.003 + 0.001;
+        
+        const colors = [
+          '255, 0, 127',   // Neon Pink
+          '255, 119, 0',   // Sunset Orange
+          '0, 240, 255',   // Electric Cyan
+          '255, 204, 0'    // Amber Gold
+        ];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        this.opacity -= this.decay;
+
+        if (this.opacity <= 0 || this.y < -10) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = `rgba(${this.color}, 0.8)`;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initParticles() {
+      const count = Math.min(Math.floor(window.innerWidth / 15), 55);
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        const p = new Particle();
+        p.y = Math.random() * canvas.height;
+        particles.push(p);
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    // =========================================================
+    // 6. STREAMER CONTROLS & HOTKEYS (H = Clean UI, B = Frame, G = Guide)
+    // =========================================================
+    const btnStreamMode = document.getElementById('btn-stream-mode');
+    const btnFrameMode = document.getElementById('btn-frame-mode');
+    const btnGuideMode = document.getElementById('btn-guide-mode');
+    const btnAudio = document.getElementById('btn-audio');
+
+    function showToast(msg) {
+      streamToast.textContent = msg;
+      streamToast.classList.add('show');
+      setTimeout(() => streamToast.classList.remove('show'), 2600);
+    }
+
+    // Clean UI for OBS (Key: H)
+    function toggleStreamMode() {
+      document.body.classList.toggle('stream-mode');
+      const isClean = document.body.classList.contains('stream-mode');
+      btnStreamMode.classList.toggle('active', isClean);
+      showToast(isClean ? '🎥 Clean OBS Overlay Mode (Press H to restore)' : 'Controls Restored');
+    }
+
+    btnStreamMode.addEventListener('click', toggleStreamMode);
+
+    // Frame Border Toggle (Key: B)
+    function toggleFrameMode() {
+      document.body.classList.toggle('show-frame');
+      const isFramed = document.body.classList.contains('show-frame');
+      btnFrameMode.classList.toggle('active', isFramed);
+      showToast(isFramed ? '📱 9:16 Phone Frame Enabled' : 'Borderless Full Bleed Mode');
+    }
+
+    btnFrameMode.addEventListener('click', toggleFrameMode);
+
+    // Safe Zone Guide Toggle
+    function toggleGuideMode() {
+      document.body.classList.toggle('show-guide');
+      const isGuiding = document.body.classList.contains('show-guide');
+      btnGuideMode.classList.toggle('active', isGuiding);
+      showToast(isGuiding ? '💬 Live Chat Safe Zone Highlighted' : 'Safe Zone Guide Hidden');
+    }
+
+    btnGuideMode.addEventListener('click', toggleGuideMode);
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+
+      if (e.key === 'h' || e.key === 'H') {
+        toggleStreamMode();
+      } else if (e.key === 'b' || e.key === 'B') {
+        toggleFrameMode();
+      } else if (e.key === 'g' || e.key === 'G') {
+        toggleGuideMode();
+      } else if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+        resetSlideTimer();
+      } else if (e.key === 'ArrowLeft') {
+        goToSlide(currentSlideIndex - 1);
+        resetSlideTimer();
+      }
+    });
+
+    // =========================================================
+    // 7. VICE CITY AMBIENT SYNTHWAVE (Web Audio)
+    // =========================================================
+    let audioCtx = null;
+    let isAudioPlaying = false;
+    let masterGain = null;
+    let synthOscs = [];
+
+    function initSynthAudio() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(440, audioCtx.currentTime);
+      filter.Q.setValueAtTime(3.2, audioCtx.currentTime);
+
+      const delay = audioCtx.createDelay();
+      delay.delayTime.setValueAtTime(0.38, audioCtx.currentTime);
+      const delayFeedback = audioCtx.createGain();
+      delayFeedback.gain.setValueAtTime(0.32, audioCtx.currentTime);
+
+      // F# minor 9th chord (92.5Hz, 138.6Hz, 220Hz, 329.6Hz)
+      const freqs = [92.50, 138.59, 220.00, 329.63];
+
+      freqs.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const oscGain = audioCtx.createGain();
+
+        osc.type = i % 2 === 0 ? 'sawtooth' : 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.detune.setValueAtTime((Math.random() - 0.5) * 12, audioCtx.currentTime);
+
+        oscGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        osc.connect(oscGain);
+        oscGain.connect(filter);
+        osc.start();
+        synthOscs.push(osc);
+      });
+
+      filter.connect(delay);
+      delay.connect(delayFeedback);
+      delayFeedback.connect(delay);
+
+      filter.connect(masterGain);
+      delay.connect(masterGain);
+      masterGain.connect(audioCtx.destination);
+    }
+
+    function toggleAudio() {
+      if (!audioCtx) {
+        initSynthAudio();
+      }
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      if (!isAudioPlaying) {
+        masterGain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 2.5);
+        isAudioPlaying = true;
+        btnAudio.classList.add('active');
+        document.getElementById('audio-icon').textContent = '🔊';
+        document.getElementById('audio-text').textContent = 'Vibe On';
+        showToast('🎵 Vice City Synth Ambiance Playing');
+      } else {
+        masterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+        isAudioPlaying = false;
+        btnAudio.classList.remove('active');
+        document.getElementById('audio-icon').textContent = '🔇';
+        document.getElementById('audio-text').textContent = 'Vibe Off';
+        showToast('Ambiance Muted');
+      }
+    }
+
+    btnAudio.addEventListener('click', toggleAudio);
+
+    // =========================================================
+    // 8. ZERO CELEBRATION EXPLOSION
+    // =========================================================
+    function createCelebrationExplosion() {
+      for (let i = 0; i < 160; i++) {
+        const p = new Particle();
+        p.x = canvas.width / 2;
+        p.y = canvas.height / 2;
+        p.speedX = (Math.random() - 0.5) * 15;
+        p.speedY = (Math.random() - 0.5) * 15;
+        p.size = Math.random() * 5 + 2;
+        p.opacity = 1;
+        p.decay = 0.005;
+        particles.push(p);
+      }
+    }
+  </script>
+</body>
+</html>
