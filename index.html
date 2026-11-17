@@ -575,19 +575,19 @@
     }
 
     /* =========================================================
-       SOUNDTRACK MUSIC PLAYER WIDGET (DUAL TRACKS ON LOOP)
+       ALWAYS-ON SOUNDTRACK MUSIC PLAYER WIDGET
        ========================================================= */
     .music-player-widget {
       width: 100%;
       margin-top: 0.8rem;
-      background: rgba(4, 14, 34, 0.85);
-      border: 1px solid rgba(0, 240, 255, 0.45);
+      background: rgba(4, 14, 34, 0.88);
+      border: 1.5px solid rgba(0, 240, 255, 0.6);
       border-radius: 16px;
       padding: 9px 14px;
       backdrop-filter: blur(16px);
       box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.8),
-        0 0 20px rgba(0, 240, 255, 0.2);
+        0 8px 25px rgba(0, 0, 0, 0.85),
+        0 0 22px rgba(0, 240, 255, 0.35);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -609,7 +609,7 @@
       transition: width 0.25s linear;
     }
 
-    /* Animated Equalizer Wave Bars */
+    /* Equalizer Wave Bars - Active by Default */
     .eq-bars {
       display: flex;
       align-items: flex-end;
@@ -621,7 +621,7 @@
 
     .eq-bar {
       width: 3.5px;
-      height: 5px;
+      height: 6px;
       background: linear-gradient(180deg, #ffffff, var(--electric-cyan));
       border-radius: 2px;
       transition: height 0.2s ease;
@@ -668,8 +668,8 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--electric-cyan);
-      box-shadow: 0 0 6px var(--electric-cyan);
+      background: #00ff88;
+      box-shadow: 0 0 6px #00ff88, 0 0 10px #00ff88;
       animation: pulseLightning 1.2s infinite;
     }
 
@@ -694,8 +694,8 @@
     }
 
     .music-ctrl-btn {
-      background: rgba(0, 240, 255, 0.15);
-      border: 1px solid rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.2);
+      border: 1px solid rgba(0, 240, 255, 0.5);
       color: #ffffff;
       width: 32px;
       height: 32px;
@@ -709,9 +709,9 @@
     }
 
     .music-ctrl-btn:hover {
-      background: rgba(0, 240, 255, 0.35);
+      background: rgba(0, 240, 255, 0.4);
       border-color: var(--electric-cyan);
-      box-shadow: 0 0 10px var(--electric-cyan);
+      box-shadow: 0 0 12px var(--electric-cyan);
       transform: scale(1.08);
     }
 
@@ -732,33 +732,33 @@
       cursor: pointer;
     }
 
-    /* Autoplay Prompt Overlay (Disappears upon first user tap/click) */
-    #autoplay-prompt {
+    /* Unmute Audio Tap Overlay - Only appears if browser blocked audio before click */
+    #audio-unmute-overlay {
       position: fixed;
-      bottom: 25px;
+      top: 18px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(2, 8, 24, 0.95);
+      background: rgba(2, 10, 28, 0.96);
       border: 1.5px solid var(--electric-cyan);
-      padding: 8px 18px;
+      padding: 9px 22px;
       border-radius: 999px;
       color: #ffffff;
       font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      box-shadow: 0 0 25px var(--electric-cyan-glow);
-      z-index: 99;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 30px var(--electric-cyan-glow);
+      z-index: 9999;
       cursor: pointer;
       display: none;
       align-items: center;
-      gap: 8px;
-      animation: promptPulse 2s infinite ease-in-out;
+      gap: 10px;
+      animation: promptPulse 1.8s infinite ease-in-out;
     }
 
     @keyframes promptPulse {
-      0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.5); transform: translateX(-50%) scale(1); }
-      50% { box-shadow: 0 0 30px rgba(0, 240, 255, 0.9); transform: translateX(-50%) scale(1.03); }
+      0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.6); transform: translateX(-50%) scale(1); }
+      50% { box-shadow: 0 0 35px rgba(0, 240, 255, 1); transform: translateX(-50%) scale(1.04); }
     }
 
     /* =========================================================
@@ -950,8 +950,8 @@
 </head>
 <body class="show-frame">
 
-  <!-- Audio Element for Dual Songs Loop -->
-  <audio id="soundtrack-audio" preload="auto"></audio>
+  <!-- Audio Element with Autoplay & Loop Attributes -->
+  <audio id="soundtrack-audio" preload="auto" playsinline></audio>
 
   <!-- Fullscreen Cinematic Slideshow Background -->
   <div id="slideshow-container">
@@ -968,11 +968,11 @@
   <canvas id="particle-canvas"></canvas>
 
   <!-- Notification Toast for Streamers -->
-  <div id="stream-toast">Soundtrack Initialized</div>
+  <div id="stream-toast">Soundtrack Active</div>
 
-  <!-- Autoplay Prompt if Browser blocks sound before interaction -->
-  <div id="autoplay-prompt">
-    <span>⚡</span> CLICK TO PLAY GTA VI SOUNDTRACK <span>🎵</span>
+  <!-- Prominent Tap Anywhere to Unmute (Only visible if browser blocked unmuted sound on load) -->
+  <div id="audio-unmute-overlay">
+    <span>⚡</span> CLICK ANYWHERE TO UNMUTE SOUNDTRACK <span>🔊</span>
   </div>
 
   <!-- Hidden file input for custom image uploads -->
@@ -1001,8 +1001,8 @@
 
         <!-- Streamer Action Controls -->
         <div class="stream-toolbar">
-          <button class="action-btn" id="btn-audio" title="Play / Pause GTA VI Soundtrack (Key: M)">
-            <span id="audio-icon">🔊</span> <span id="audio-text">Music On</span>
+          <button class="action-btn active" id="btn-audio" title="GTA VI Soundtrack (Always On)">
+            <span id="audio-icon">🔊</span> <span id="audio-text">Music: ON</span>
           </button>
 
           <button class="action-btn" id="btn-stream-mode" title="Clean Stream Mode for OBS (Key: H)">
@@ -1075,8 +1075,8 @@
         </div>
       </section>
 
-      <!-- DUAL-TRACK CONTINUOUS SOUNDTRACK PLAYER WIDGET -->
-      <div class="music-player-widget" id="music-player-widget">
+      <!-- ALWAYS-ON SOUNDTRACK PLAYER WIDGET -->
+      <div class="music-player-widget playing" id="music-player-widget">
         <!-- Equalizer Animation Bars -->
         <div class="eq-bars" id="eq-bars" title="Soundtrack Playing">
           <span class="eq-bar"></span>
@@ -1089,22 +1089,22 @@
         <div class="music-info">
           <div class="music-badge-row">
             <span class="music-live-dot"></span>
-            <span>GTA VI SOUNDTRACK • LOOP</span>
+            <span>GTA VI SOUNDTRACK • LOOP (ALWAYS ON)</span>
           </div>
           <div class="music-title" id="music-title">Tove Lo - Blood In Your Eyes</div>
         </div>
 
         <!-- Music Controls -->
         <div class="music-controls">
-          <button class="music-ctrl-btn" id="btn-play-pause" title="Play / Pause Soundtrack (Key: M)">
-            <span id="play-pause-icon">⏸</span>
+          <button class="music-ctrl-btn" id="btn-play-pause" title="Play / Unmute Soundtrack (Key: M)">
+            <span id="play-pause-icon">🔊</span>
           </button>
           <button class="music-ctrl-btn" id="btn-next-track" title="Next Song (Key: N)">
             <span>⏭</span>
           </button>
           <div class="volume-slider-wrap">
             <span id="vol-icon" class="vol-icon" title="Mute / Unmute">🔊</span>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.75" title="Volume" />
+            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.85" title="Volume" />
           </div>
         </div>
       </div>
@@ -1148,7 +1148,7 @@
     /**
      * GTA VI 9:16 VERTICAL STREAM ENGINE
      * THEME: ULTRA GAMING ELECTRIC BLUE & CHROME
-     * AUDIO: DUAL-TRACK PLAYLIST LOOPING CONTINUOUSLY
+     * AUDIO: ALWAYS-ON DUAL-TRACK CONTINUOUS LOOP
      */
 
     // 1. CONFIGURATION & STATE
@@ -1212,7 +1212,7 @@
 
     function triggerTick(element) {
       element.classList.remove('tick');
-      void element.offsetWidth; // Force reflow
+      void element.offsetWidth;
       element.classList.add('tick');
     }
 
@@ -1323,7 +1323,7 @@
     resetSlideTimer();
 
     // =========================================================
-    // 4. DUAL-SONG PLAYLIST ENGINE (ONE BY ONE ON CONTINUOUS LOOP)
+    // 4. ALWAYS-ON DUAL-SONG PLAYLIST ENGINE (NEVER OFF)
     // =========================================================
     const audioElement = document.getElementById('soundtrack-audio');
     const musicPlayerWidget = document.getElementById('music-player-widget');
@@ -1336,97 +1336,100 @@
     const btnAudio = document.getElementById('btn-audio');
     const audioIcon = document.getElementById('audio-icon');
     const audioText = document.getElementById('audio-text');
-    const autoplayPrompt = document.getElementById('autoplay-prompt');
+    const audioUnmuteOverlay = document.getElementById('audio-unmute-overlay');
 
     let currentTrackIndex = 0;
-    let isPlaying = false;
-    let userHasInteracted = false;
+    let isMusicActive = true; // Music is strictly ON
+    let isMutedPendingInteraction = false;
 
     // Load and play a specific track
-    function loadTrack(index, autoPlay = true) {
+    function loadTrack(index) {
       currentTrackIndex = (index + CONFIG.soundtracks.length) % CONFIG.soundtracks.length;
       const track = CONFIG.soundtracks[currentTrackIndex];
       
       musicTitle.textContent = track.title;
       audioElement.src = track.src;
 
-      // Fallback if audio/ path fails
+      // Fallback path handler
       audioElement.onerror = () => {
         if (track.fallbackSrc && audioElement.src !== track.fallbackSrc) {
           audioElement.src = encodeURI(track.fallbackSrc);
         }
       };
 
-      if (autoPlay) {
-        startPlayback();
-      }
+      triggerAutoPlay();
     }
 
-    function startPlayback() {
+    function triggerAutoPlay() {
+      audioElement.volume = parseFloat(volumeSlider.value) || 0.85;
+
       const playPromise = audioElement.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            isPlaying = true;
-            updateMusicUI();
-            if (autoplayPrompt) autoplayPrompt.style.display = 'none';
+            // Unmuted playback succeeded immediately!
+            isMutedPendingInteraction = false;
+            if (audioUnmuteOverlay) audioUnmuteOverlay.style.display = 'none';
+            setMusicUIActive(true);
           })
-          .catch(error => {
-            // Browser autoplay policy prevented playback before interaction
-            console.warn('Autoplay blocked pending user interaction:', error);
-            isPlaying = false;
-            updateMusicUI();
-            if (!userHasInteracted && autoplayPrompt) {
-              autoplayPrompt.style.display = 'flex';
+          .catch(() => {
+            // Browser restricted initial unmuted play:
+            // 1. Play muted immediately so audio buffer & equalizer are physically running
+            audioElement.muted = true;
+            audioElement.play().catch(() => {});
+            isMutedPendingInteraction = true;
+            setMusicUIActive(true);
+
+            // 2. Show prominent unmute reminder banner
+            if (audioUnmuteOverlay) {
+              audioUnmuteOverlay.style.display = 'flex';
             }
+
+            // 3. Attach one-shot event listeners to unmute instantly on ANY user action
+            setupImmediateUnmuteListener();
           });
       }
     }
 
-    function pausePlayback() {
-      audioElement.pause();
-      isPlaying = false;
-      updateMusicUI();
+    // Instantly unmute as soon as user touches or clicks anywhere on the page
+    function setupImmediateUnmuteListener() {
+      const unmuteEvents = ['click', 'pointerdown', 'mousedown', 'touchstart', 'keydown', 'wheel'];
+      
+      function onFirstUserGesture() {
+        audioElement.muted = false;
+        audioElement.volume = parseFloat(volumeSlider.value) || 0.85;
+        audioElement.play().catch(() => {});
+        isMutedPendingInteraction = false;
+        if (audioUnmuteOverlay) audioUnmuteOverlay.style.display = 'none';
+        setMusicUIActive(true);
+        showToast(`🔊 Soundtrack Live: ${CONFIG.soundtracks[currentTrackIndex].title}`);
+
+        unmuteEvents.forEach(evt => window.removeEventListener(evt, onFirstUserGesture, true));
+      }
+
+      unmuteEvents.forEach(evt => window.addEventListener(evt, onFirstUserGesture, { capture: true, once: true }));
     }
 
-    function togglePlayback() {
-      if (isPlaying) {
-        pausePlayback();
-        showToast('🔇 Soundtrack Paused');
-      } else {
-        startPlayback();
-        showToast(`🎵 Playing: ${CONFIG.soundtracks[currentTrackIndex].title}`);
-      }
+    function setMusicUIActive(active) {
+      musicPlayerWidget.classList.add('playing');
+      btnAudio.classList.add('active');
+      audioIcon.textContent = '🔊';
+      audioText.textContent = 'Music: ON';
+      playPauseIcon.textContent = '🔊';
     }
 
     function nextTrack() {
-      loadTrack(currentTrackIndex + 1, true);
+      loadTrack(currentTrackIndex + 1);
       showToast(`⏭ Now Playing: ${CONFIG.soundtracks[currentTrackIndex].title}`);
-    }
-
-    function updateMusicUI() {
-      if (isPlaying) {
-        musicPlayerWidget.classList.add('playing');
-        playPauseIcon.textContent = '⏸';
-        btnAudio.classList.add('active');
-        audioIcon.textContent = '🔊';
-        audioText.textContent = 'Music On';
-      } else {
-        musicPlayerWidget.classList.remove('playing');
-        playPauseIcon.textContent = '▶';
-        btnAudio.classList.remove('active');
-        audioIcon.textContent = '🔇';
-        audioText.textContent = 'Music Off';
-      }
     }
 
     // THE CRITICAL LOOP: When song 1 finishes, play song 2; when song 2 finishes, play song 1!
     audioElement.addEventListener('ended', () => {
-      console.log('Track finished, transitioning to next track on loop...');
+      console.log('Song finished, looping to next song...');
       nextTrack();
     });
 
-    // Update track progress bar
+    // Audio progress bar updater
     audioElement.addEventListener('timeupdate', () => {
       if (audioElement.duration) {
         const pct = (audioElement.currentTime / audioElement.duration) * 100;
@@ -1434,36 +1437,56 @@
       }
     });
 
-    // Event Listeners for Player Controls
+    // Ensure music stays strictly ON: Auto-resume watchdog
+    setInterval(() => {
+      if (isMusicActive && audioElement.paused) {
+        audioElement.play().catch(() => {});
+      }
+    }, 2000);
+
+    // Click on Music button / Play button ensures music is on and unmuted
+    btnAudio.addEventListener('click', (e) => {
+      e.stopPropagation();
+      audioElement.muted = false;
+      audioElement.volume = parseFloat(volumeSlider.value) || 0.85;
+      audioElement.play().catch(() => {});
+      if (audioUnmuteOverlay) audioUnmuteOverlay.style.display = 'none';
+      showToast(`🔊 Music: ON (${CONFIG.soundtracks[currentTrackIndex].title})`);
+    });
+
     btnPlayPause.addEventListener('click', (e) => {
       e.stopPropagation();
-      userHasInteracted = true;
-      togglePlayback();
+      audioElement.muted = false;
+      audioElement.volume = parseFloat(volumeSlider.value) || 0.85;
+      audioElement.play().catch(() => {});
+      if (audioUnmuteOverlay) audioUnmuteOverlay.style.display = 'none';
+      showToast(`🔊 Soundtrack Playing`);
     });
 
     btnNextTrack.addEventListener('click', (e) => {
       e.stopPropagation();
-      userHasInteracted = true;
+      audioElement.muted = false;
       nextTrack();
     });
 
-    btnAudio.addEventListener('click', (e) => {
-      e.stopPropagation();
-      userHasInteracted = true;
-      togglePlayback();
-    });
+    if (audioUnmuteOverlay) {
+      audioUnmuteOverlay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        audioElement.muted = false;
+        audioElement.volume = parseFloat(volumeSlider.value) || 0.85;
+        audioElement.play().catch(() => {});
+        audioUnmuteOverlay.style.display = 'none';
+        showToast(`🔊 Soundtrack Unmuted!`);
+      });
+    }
 
     // Volume Slider
     volumeSlider.addEventListener('input', (e) => {
       e.stopPropagation();
-      audioElement.volume = parseFloat(e.target.value);
-      if (audioElement.volume === 0) {
-        volIcon.textContent = '🔇';
-      } else if (audioElement.volume < 0.5) {
-        volIcon.textContent = '🔉';
-      } else {
-        volIcon.textContent = '🔊';
-      }
+      const val = parseFloat(e.target.value);
+      audioElement.volume = val;
+      audioElement.muted = (val === 0);
+      volIcon.textContent = val === 0 ? '🔇' : (val < 0.5 ? '🔉' : '🔊');
     });
 
     volIcon.addEventListener('click', (e) => {
@@ -1473,35 +1496,15 @@
         volumeSlider.value = 0;
         volIcon.textContent = '🔇';
       } else {
-        audioElement.volume = 0.75;
-        volumeSlider.value = 0.75;
+        audioElement.volume = 0.85;
+        volumeSlider.value = 0.85;
         volIcon.textContent = '🔊';
+        audioElement.muted = false;
       }
     });
 
-    // Autoplay Prompt Click
-    if (autoplayPrompt) {
-      autoplayPrompt.addEventListener('click', () => {
-        userHasInteracted = true;
-        autoplayPrompt.style.display = 'none';
-        startPlayback();
-      });
-    }
-
-    // Click anywhere on the webpage to start sound if autoplay was blocked
-    window.addEventListener('click', () => {
-      if (!userHasInteracted) {
-        userHasInteracted = true;
-        if (autoplayPrompt) autoplayPrompt.style.display = 'none';
-        if (!isPlaying) {
-          startPlayback();
-        }
-      }
-    }, { once: false });
-
-    // Initialize first track
-    audioElement.volume = 0.75;
-    loadTrack(0, true);
+    // Start Track 1 immediately on page load
+    loadTrack(0);
 
     // =========================================================
     // 5. IMAGE FOLDER / DRAG & DROP CUSTOM LOADER
@@ -1570,16 +1573,15 @@
         this.speedX = (Math.random() - 0.5) * 1.2;
         this.opacity = Math.random() * 0.8 + 0.2;
         this.decay = Math.random() * 0.003 + 0.001;
-        this.isShard = Math.random() > 0.6; // 40% are diamond-shaped crystal shards
+        this.isShard = Math.random() > 0.6;
         this.rotation = Math.random() * Math.PI * 2;
         this.rotSpeed = (Math.random() - 0.5) * 0.04;
         
-        // Colors: Electric Cyan, Plasma Blue, Bright White, Deep Electric
         const colors = [
-          '0, 240, 255',   // Electric Cyan
-          '0, 140, 255',   // Plasma Blue
-          '255, 255, 255', // Ice White
-          '0, 80, 255'     // Deep Electric
+          '0, 240, 255',
+          '0, 140, 255',
+          '255, 255, 255',
+          '0, 80, 255'
         ];
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }
@@ -1696,7 +1698,7 @@
     animateParticles();
 
     // =========================================================
-    // 7. STREAMER CONTROLS & HOTKEYS (H = Clean UI, B = Frame, M = Music, N = Next Song)
+    // 7. STREAMER CONTROLS & HOTKEYS (H = Clean UI, B = Frame, N = Next Song)
     // =========================================================
     const btnStreamMode = document.getElementById('btn-stream-mode');
     const btnFrameMode = document.getElementById('btn-frame-mode');
@@ -1748,12 +1750,12 @@
         toggleFrameMode();
       } else if (e.key === 'g' || e.key === 'G') {
         toggleGuideMode();
-      } else if (e.key === 'm' || e.key === 'M') {
-        userHasInteracted = true;
-        togglePlayback();
       } else if (e.key === 'n' || e.key === 'N') {
-        userHasInteracted = true;
         nextTrack();
+      } else if (e.key === 'm' || e.key === 'M') {
+        audioElement.muted = false;
+        audioElement.play().catch(() => {});
+        showToast('🔊 Music: ON');
       } else if (e.key === 'ArrowRight') {
         nextSlide();
         resetSlideTimer();
