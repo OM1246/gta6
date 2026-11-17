@@ -190,7 +190,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 1.1rem 1.1rem 2.2rem 1.1rem;
+      padding: 1.1rem 1.1rem 1.8rem 1.1rem;
       text-align: center;
       position: relative;
       transition: all 0.3s ease;
@@ -204,7 +204,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.65rem;
       padding-top: 0.4rem;
     }
 
@@ -340,8 +340,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 0.8rem;
-      margin-bottom: 1.1rem;
+      margin-top: 0.7rem;
+      margin-bottom: 0.9rem;
     }
 
     .top-eyebrow {
@@ -413,7 +413,7 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: rgba(220, 240, 255, 0.9);
-      margin-top: 0.6rem;
+      margin-top: 0.5rem;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
       position: relative;
       display: inline-block;
@@ -438,7 +438,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0.6rem 0;
+      margin: 0.5rem 0;
     }
 
     .countdown-grid-2x2 {
@@ -446,14 +446,14 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      gap: 14px;
+      gap: 13px;
     }
 
     .time-card {
       position: relative;
       background: var(--bg-card);
       border-radius: 20px;
-      padding: clamp(1.2rem, 4.8vw, 2.1rem) 0.8rem;
+      padding: clamp(1.1rem, 4.4vw, 1.9rem) 0.8rem;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       display: flex;
@@ -496,7 +496,6 @@
       pointer-events: none;
     }
 
-    /* Inner Ice Crystal Corner Highlight */
     .time-card::after {
       content: '';
       position: absolute;
@@ -508,17 +507,17 @@
       opacity: 0.85;
     }
 
-    /* Massive Chiseled Chrome Numbers (Inspired by the ULTRA cracked chrome letters) */
+    /* Massive Chiseled Chrome Numbers */
     .time-number {
       font-family: var(--font-display);
-      font-size: clamp(3.2rem, 14vw, 5.2rem);
+      font-size: clamp(3rem, 13.5vw, 5rem);
       font-weight: 900;
       line-height: 1;
       background: linear-gradient(180deg, #ffffff 0%, #eaf4ff 30%, #a8d0f8 65%, #4b7ea8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.85)) drop-shadow(0 0 40px rgba(0, 100, 255, 0.5));
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
       letter-spacing: -1px;
       will-change: transform;
       transition: transform 0.12s ease-out;
@@ -531,7 +530,7 @@
 
     .time-label {
       font-family: var(--font-heading);
-      font-size: clamp(0.75rem, 3vw, 0.95rem);
+      font-size: clamp(0.72rem, 2.8vw, 0.92rem);
       font-weight: 800;
       letter-spacing: 4px;
       text-transform: uppercase;
@@ -539,15 +538,15 @@
       text-shadow: 0 0 10px var(--electric-cyan-glow);
     }
 
-    /* Target Release Pill with Lightning Flare */
+    /* Target Release Pill */
     .target-date-pill {
-      margin-top: 1.1rem;
+      margin-top: 0.9rem;
       width: 100%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 8px 14px;
+      padding: 7px 14px;
       background: rgba(3, 12, 28, 0.85);
       border: 1px solid rgba(0, 240, 255, 0.5);
       border-radius: 999px;
@@ -563,7 +562,7 @@
 
     .pill-text {
       font-family: var(--font-body);
-      font-size: clamp(0.85rem, 3.2vw, 1.05rem);
+      font-size: clamp(0.82rem, 3.1vw, 1rem);
       font-weight: 700;
       letter-spacing: 1.5px;
       color: #ffffff;
@@ -573,6 +572,193 @@
     .pill-text strong {
       color: var(--electric-cyan);
       text-shadow: 0 0 12px var(--electric-cyan-glow);
+    }
+
+    /* =========================================================
+       SOUNDTRACK MUSIC PLAYER WIDGET (DUAL TRACKS ON LOOP)
+       ========================================================= */
+    .music-player-widget {
+      width: 100%;
+      margin-top: 0.8rem;
+      background: rgba(4, 14, 34, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      border-radius: 16px;
+      padding: 9px 14px;
+      backdrop-filter: blur(16px);
+      box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 240, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .music-player-widget::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: var(--track-progress, 0%);
+      background: linear-gradient(90deg, var(--plasma-blue), var(--electric-cyan), #ffffff);
+      box-shadow: 0 0 8px var(--electric-cyan);
+      transition: width 0.25s linear;
+    }
+
+    /* Animated Equalizer Wave Bars */
+    .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 22px;
+      width: 22px;
+      flex-shrink: 0;
+    }
+
+    .eq-bar {
+      width: 3.5px;
+      height: 5px;
+      background: linear-gradient(180deg, #ffffff, var(--electric-cyan));
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+
+    .music-player-widget.playing .eq-bar:nth-child(1) {
+      animation: eqWave1 0.7s infinite alternate ease-in-out;
+    }
+    .music-player-widget.playing .eq-bar:nth-child(2) {
+      animation: eqWave2 0.5s infinite alternate ease-in-out 0.15s;
+    }
+    .music-player-widget.playing .eq-bar:nth-child(3) {
+      animation: eqWave3 0.8s infinite alternate ease-in-out 0.3s;
+    }
+    .music-player-widget.playing .eq-bar:nth-child(4) {
+      animation: eqWave1 0.6s infinite alternate ease-in-out 0.45s;
+    }
+
+    @keyframes eqWave1 { 0% { height: 4px; } 100% { height: 18px; } }
+    @keyframes eqWave2 { 0% { height: 6px; } 100% { height: 22px; } }
+    @keyframes eqWave3 { 0% { height: 3px; } 100% { height: 16px; } }
+
+    .music-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .music-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--electric-cyan);
+    }
+
+    .music-live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--electric-cyan);
+      box-shadow: 0 0 6px var(--electric-cyan);
+      animation: pulseLightning 1.2s infinite;
+    }
+
+    .music-title {
+      font-family: var(--font-heading);
+      font-size: clamp(0.78rem, 2.7vw, 0.92rem);
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+      letter-spacing: 0.5px;
+      margin-top: 1px;
+    }
+
+    .music-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .music-ctrl-btn {
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: #ffffff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .music-ctrl-btn:hover {
+      background: rgba(0, 240, 255, 0.35);
+      border-color: var(--electric-cyan);
+      box-shadow: 0 0 10px var(--electric-cyan);
+      transform: scale(1.08);
+    }
+
+    .volume-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .vol-icon {
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    #volume-slider {
+      width: 50px;
+      accent-color: var(--electric-cyan);
+      cursor: pointer;
+    }
+
+    /* Autoplay Prompt Overlay (Disappears upon first user tap/click) */
+    #autoplay-prompt {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(2, 8, 24, 0.95);
+      border: 1.5px solid var(--electric-cyan);
+      padding: 8px 18px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 0 25px var(--electric-cyan-glow);
+      z-index: 99;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      animation: promptPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes promptPulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.5); transform: translateX(-50%) scale(1); }
+      50% { box-shadow: 0 0 30px rgba(0, 240, 255, 0.9); transform: translateX(-50%) scale(1.03); }
     }
 
     /* =========================================================
@@ -632,14 +818,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.7rem;
-      margin-top: 0.9rem;
-      padding-bottom: 0.5rem;
+      gap: 0.6rem;
+      margin-top: 0.7rem;
+      padding-bottom: 0.4rem;
     }
 
     .cinematic-tagline {
       font-family: var(--font-heading);
-      font-size: clamp(0.78rem, 2.9vw, 1.05rem);
+      font-size: clamp(0.76rem, 2.8vw, 1.02rem);
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -651,11 +837,10 @@
       line-height: 1.3;
     }
 
-    /* Slideshow Dots Indicator */
     .slide-dot-nav {
       display: flex;
       gap: 7px;
-      margin: 4px 0;
+      margin: 2px 0;
     }
 
     .slide-dot {
@@ -679,11 +864,11 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
       align-items: center;
-      padding-top: 0.6rem;
+      padding-top: 0.5rem;
       border-top: 1px solid rgba(0, 240, 255, 0.15);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: rgba(200, 230, 255, 0.6);
       letter-spacing: 1px;
     }
@@ -721,7 +906,8 @@
     /* Clean Stream Broadcast Mode (Press H) */
     body.stream-mode .stream-toolbar,
     body.stream-mode .footer-bar,
-    body.stream-mode .slide-dot-nav {
+    body.stream-mode .slide-dot-nav,
+    body.stream-mode .music-player-widget {
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -764,6 +950,9 @@
 </head>
 <body class="show-frame">
 
+  <!-- Audio Element for Dual Songs Loop -->
+  <audio id="soundtrack-audio" preload="auto"></audio>
+
   <!-- Fullscreen Cinematic Slideshow Background -->
   <div id="slideshow-container">
     <div id="slide-layer-1" class="slide active"></div>
@@ -779,7 +968,12 @@
   <canvas id="particle-canvas"></canvas>
 
   <!-- Notification Toast for Streamers -->
-  <div id="stream-toast">Ultra Gaming Theme Activated</div>
+  <div id="stream-toast">Soundtrack Initialized</div>
+
+  <!-- Autoplay Prompt if Browser blocks sound before interaction -->
+  <div id="autoplay-prompt">
+    <span>⚡</span> CLICK TO PLAY GTA VI SOUNDTRACK <span>🎵</span>
+  </div>
 
   <!-- Hidden file input for custom image uploads -->
   <input type="file" id="image-folder-input" multiple accept="image/jpeg,image/png,image/webp,image/gif" />
@@ -807,8 +1001,8 @@
 
         <!-- Streamer Action Controls -->
         <div class="stream-toolbar">
-          <button class="action-btn" id="btn-audio" title="Toggle Electric Ambient Synthwave Drone">
-            <span id="audio-icon">🔊</span> <span id="audio-text">Audio</span>
+          <button class="action-btn" id="btn-audio" title="Play / Pause GTA VI Soundtrack (Key: M)">
+            <span id="audio-icon">🔊</span> <span id="audio-text">Music On</span>
           </button>
 
           <button class="action-btn" id="btn-stream-mode" title="Clean Stream Mode for OBS (Key: H)">
@@ -881,6 +1075,40 @@
         </div>
       </section>
 
+      <!-- DUAL-TRACK CONTINUOUS SOUNDTRACK PLAYER WIDGET -->
+      <div class="music-player-widget" id="music-player-widget">
+        <!-- Equalizer Animation Bars -->
+        <div class="eq-bars" id="eq-bars" title="Soundtrack Playing">
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+        </div>
+
+        <!-- Track Info -->
+        <div class="music-info">
+          <div class="music-badge-row">
+            <span class="music-live-dot"></span>
+            <span>GTA VI SOUNDTRACK • LOOP</span>
+          </div>
+          <div class="music-title" id="music-title">Tove Lo - Blood In Your Eyes</div>
+        </div>
+
+        <!-- Music Controls -->
+        <div class="music-controls">
+          <button class="music-ctrl-btn" id="btn-play-pause" title="Play / Pause Soundtrack (Key: M)">
+            <span id="play-pause-icon">⏸</span>
+          </button>
+          <button class="music-ctrl-btn" id="btn-next-track" title="Next Song (Key: N)">
+            <span>⏭</span>
+          </button>
+          <div class="volume-slider-wrap">
+            <span id="vol-icon" class="vol-icon" title="Mute / Unmute">🔊</span>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.75" title="Volume" />
+          </div>
+        </div>
+      </div>
+
       <!-- Celebration Screen (Triggered at Zero) -->
       <div id="celebration-screen">
         <h2 class="celebration-title">GTA VI IS FINALLY HERE!</h2>
@@ -920,6 +1148,7 @@
     /**
      * GTA VI 9:16 VERTICAL STREAM ENGINE
      * THEME: ULTRA GAMING ELECTRIC BLUE & CHROME
+     * AUDIO: DUAL-TRACK PLAYLIST LOOPING CONTINUOUSLY
      */
 
     // 1. CONFIGURATION & STATE
@@ -937,6 +1166,22 @@
         'images/gta-6-first-official-artwork-1600.jpg',
         'images/jasonandlucia-02-withlogos-1600.jpg',
         'images/gta-6-logo-official-artwork-1600.jpg'
+      ],
+
+      // Dual-track continuous playlist (plays track 1 -> track 2 -> track 1 on infinite loop)
+      soundtracks: [
+        {
+          title: "Tove Lo - Blood In Your Eyes",
+          label: "From Grand Theft Auto VI The Album",
+          src: "audio/tove-lo-blood-in-your-eyes.mp3",
+          fallbackSrc: "Tove Lo - Blood In Your Eyes (From Grand Theft Auto VI The Album).mp3"
+        },
+        {
+          title: "Justice - Flower In A Hurricane",
+          label: "GTA VI Official Soundtrack",
+          src: "audio/justice-flower-in-a-hurricane.mp3",
+          fallbackSrc: "Justice Flower In A Hurricane (UnOfficial Music Video).mp3"
+        }
       ]
     };
 
@@ -1078,7 +1323,188 @@
     resetSlideTimer();
 
     // =========================================================
-    // 4. IMAGE FOLDER / DRAG & DROP CUSTOM LOADER
+    // 4. DUAL-SONG PLAYLIST ENGINE (ONE BY ONE ON CONTINUOUS LOOP)
+    // =========================================================
+    const audioElement = document.getElementById('soundtrack-audio');
+    const musicPlayerWidget = document.getElementById('music-player-widget');
+    const musicTitle = document.getElementById('music-title');
+    const playPauseIcon = document.getElementById('play-pause-icon');
+    const btnPlayPause = document.getElementById('btn-play-pause');
+    const btnNextTrack = document.getElementById('btn-next-track');
+    const volumeSlider = document.getElementById('volume-slider');
+    const volIcon = document.getElementById('vol-icon');
+    const btnAudio = document.getElementById('btn-audio');
+    const audioIcon = document.getElementById('audio-icon');
+    const audioText = document.getElementById('audio-text');
+    const autoplayPrompt = document.getElementById('autoplay-prompt');
+
+    let currentTrackIndex = 0;
+    let isPlaying = false;
+    let userHasInteracted = false;
+
+    // Load and play a specific track
+    function loadTrack(index, autoPlay = true) {
+      currentTrackIndex = (index + CONFIG.soundtracks.length) % CONFIG.soundtracks.length;
+      const track = CONFIG.soundtracks[currentTrackIndex];
+      
+      musicTitle.textContent = track.title;
+      audioElement.src = track.src;
+
+      // Fallback if audio/ path fails
+      audioElement.onerror = () => {
+        if (track.fallbackSrc && audioElement.src !== track.fallbackSrc) {
+          audioElement.src = encodeURI(track.fallbackSrc);
+        }
+      };
+
+      if (autoPlay) {
+        startPlayback();
+      }
+    }
+
+    function startPlayback() {
+      const playPromise = audioElement.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            isPlaying = true;
+            updateMusicUI();
+            if (autoplayPrompt) autoplayPrompt.style.display = 'none';
+          })
+          .catch(error => {
+            // Browser autoplay policy prevented playback before interaction
+            console.warn('Autoplay blocked pending user interaction:', error);
+            isPlaying = false;
+            updateMusicUI();
+            if (!userHasInteracted && autoplayPrompt) {
+              autoplayPrompt.style.display = 'flex';
+            }
+          });
+      }
+    }
+
+    function pausePlayback() {
+      audioElement.pause();
+      isPlaying = false;
+      updateMusicUI();
+    }
+
+    function togglePlayback() {
+      if (isPlaying) {
+        pausePlayback();
+        showToast('🔇 Soundtrack Paused');
+      } else {
+        startPlayback();
+        showToast(`🎵 Playing: ${CONFIG.soundtracks[currentTrackIndex].title}`);
+      }
+    }
+
+    function nextTrack() {
+      loadTrack(currentTrackIndex + 1, true);
+      showToast(`⏭ Now Playing: ${CONFIG.soundtracks[currentTrackIndex].title}`);
+    }
+
+    function updateMusicUI() {
+      if (isPlaying) {
+        musicPlayerWidget.classList.add('playing');
+        playPauseIcon.textContent = '⏸';
+        btnAudio.classList.add('active');
+        audioIcon.textContent = '🔊';
+        audioText.textContent = 'Music On';
+      } else {
+        musicPlayerWidget.classList.remove('playing');
+        playPauseIcon.textContent = '▶';
+        btnAudio.classList.remove('active');
+        audioIcon.textContent = '🔇';
+        audioText.textContent = 'Music Off';
+      }
+    }
+
+    // THE CRITICAL LOOP: When song 1 finishes, play song 2; when song 2 finishes, play song 1!
+    audioElement.addEventListener('ended', () => {
+      console.log('Track finished, transitioning to next track on loop...');
+      nextTrack();
+    });
+
+    // Update track progress bar
+    audioElement.addEventListener('timeupdate', () => {
+      if (audioElement.duration) {
+        const pct = (audioElement.currentTime / audioElement.duration) * 100;
+        musicPlayerWidget.style.setProperty('--track-progress', `${pct}%`);
+      }
+    });
+
+    // Event Listeners for Player Controls
+    btnPlayPause.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userHasInteracted = true;
+      togglePlayback();
+    });
+
+    btnNextTrack.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userHasInteracted = true;
+      nextTrack();
+    });
+
+    btnAudio.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userHasInteracted = true;
+      togglePlayback();
+    });
+
+    // Volume Slider
+    volumeSlider.addEventListener('input', (e) => {
+      e.stopPropagation();
+      audioElement.volume = parseFloat(e.target.value);
+      if (audioElement.volume === 0) {
+        volIcon.textContent = '🔇';
+      } else if (audioElement.volume < 0.5) {
+        volIcon.textContent = '🔉';
+      } else {
+        volIcon.textContent = '🔊';
+      }
+    });
+
+    volIcon.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (audioElement.volume > 0) {
+        audioElement.volume = 0;
+        volumeSlider.value = 0;
+        volIcon.textContent = '🔇';
+      } else {
+        audioElement.volume = 0.75;
+        volumeSlider.value = 0.75;
+        volIcon.textContent = '🔊';
+      }
+    });
+
+    // Autoplay Prompt Click
+    if (autoplayPrompt) {
+      autoplayPrompt.addEventListener('click', () => {
+        userHasInteracted = true;
+        autoplayPrompt.style.display = 'none';
+        startPlayback();
+      });
+    }
+
+    // Click anywhere on the webpage to start sound if autoplay was blocked
+    window.addEventListener('click', () => {
+      if (!userHasInteracted) {
+        userHasInteracted = true;
+        if (autoplayPrompt) autoplayPrompt.style.display = 'none';
+        if (!isPlaying) {
+          startPlayback();
+        }
+      }
+    }, { once: false });
+
+    // Initialize first track
+    audioElement.volume = 0.75;
+    loadTrack(0, true);
+
+    // =========================================================
+    // 5. IMAGE FOLDER / DRAG & DROP CUSTOM LOADER
     // =========================================================
     const imageInput = document.getElementById('image-folder-input');
     const btnLoadImages = document.getElementById('btn-load-images');
@@ -1117,7 +1543,7 @@
     });
 
     // =========================================================
-    // 5. ELECTRIC LIGHTNING SPARKS & ICE CRYSTAL SHARDS CANVAS
+    // 6. ELECTRIC LIGHTNING SPARKS & ICE CRYSTAL SHARDS CANVAS
     // =========================================================
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -1175,7 +1601,6 @@
         ctx.rotate(this.rotation);
         
         if (this.isShard) {
-          // Draw diamond crystal shard
           ctx.beginPath();
           ctx.moveTo(0, -this.size * 1.8);
           ctx.lineTo(this.size * 0.9, 0);
@@ -1187,7 +1612,6 @@
           ctx.shadowColor = `rgba(${this.color}, 0.9)`;
           ctx.fill();
         } else {
-          // Draw energy spark
           ctx.beginPath();
           ctx.arc(0, 0, this.size, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
@@ -1200,9 +1624,8 @@
       }
     }
 
-    // Subtle background electric lightning arcs
     function createLightningBranch() {
-      if (Math.random() > 0.04) return; // Rare, dramatic flashes
+      if (Math.random() > 0.04) return;
       const startX = Math.random() * canvas.width;
       const startY = Math.random() * (canvas.height * 0.4);
       let currentX = startX;
@@ -1236,7 +1659,6 @@
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw lightning arcs
       createLightningBranch();
       for (let i = lightningBolts.length - 1; i >= 0; i--) {
         const bolt = lightningBolts[i];
@@ -1263,7 +1685,6 @@
         }
       }
 
-      // Draw particles
       particles.forEach(p => {
         p.update();
         p.draw();
@@ -1275,12 +1696,11 @@
     animateParticles();
 
     // =========================================================
-    // 6. STREAMER CONTROLS & HOTKEYS (H = Clean UI, B = Frame, G = Guide)
+    // 7. STREAMER CONTROLS & HOTKEYS (H = Clean UI, B = Frame, M = Music, N = Next Song)
     // =========================================================
     const btnStreamMode = document.getElementById('btn-stream-mode');
     const btnFrameMode = document.getElementById('btn-frame-mode');
     const btnGuideMode = document.getElementById('btn-guide-mode');
-    const btnAudio = document.getElementById('btn-audio');
 
     function showToast(msg) {
       streamToast.textContent = msg;
@@ -1328,7 +1748,13 @@
         toggleFrameMode();
       } else if (e.key === 'g' || e.key === 'G') {
         toggleGuideMode();
-      } else if (e.key === 'ArrowRight' || e.key === ' ') {
+      } else if (e.key === 'm' || e.key === 'M') {
+        userHasInteracted = true;
+        togglePlayback();
+      } else if (e.key === 'n' || e.key === 'N') {
+        userHasInteracted = true;
+        nextTrack();
+      } else if (e.key === 'ArrowRight') {
         nextSlide();
         resetSlideTimer();
       } else if (e.key === 'ArrowLeft') {
@@ -1336,86 +1762,6 @@
         resetSlideTimer();
       }
     });
-
-    // =========================================================
-    // 7. CYBERPUNK ELECTRIC SYNTHWAVE (Web Audio)
-    // =========================================================
-    let audioCtx = null;
-    let isAudioPlaying = false;
-    let masterGain = null;
-    let synthOscs = [];
-
-    function initSynthAudio() {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-
-      masterGain = audioCtx.createGain();
-      masterGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(460, audioCtx.currentTime);
-      filter.Q.setValueAtTime(3.8, audioCtx.currentTime);
-
-      const delay = audioCtx.createDelay();
-      delay.delayTime.setValueAtTime(0.35, audioCtx.currentTime);
-      const delayFeedback = audioCtx.createGain();
-      delayFeedback.gain.setValueAtTime(0.34, audioCtx.currentTime);
-
-      // Energetic gaming synth drone chord (D minor power chord: D2, A2, D3, F3, A3)
-      const freqs = [73.42, 110.00, 146.83, 174.61, 220.00];
-
-      freqs.forEach((freq, i) => {
-        const osc = audioCtx.createOscillator();
-        const oscGain = audioCtx.createGain();
-
-        osc.type = i % 2 === 0 ? 'sawtooth' : 'triangle';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        osc.detune.setValueAtTime((Math.random() - 0.5) * 14, audioCtx.currentTime);
-
-        oscGain.gain.setValueAtTime(0.07, audioCtx.currentTime);
-        osc.connect(oscGain);
-        oscGain.connect(filter);
-        osc.start();
-        synthOscs.push(osc);
-      });
-
-      filter.connect(delay);
-      delay.connect(delayFeedback);
-      delayFeedback.connect(delay);
-
-      filter.connect(masterGain);
-      delay.connect(masterGain);
-      masterGain.connect(audioCtx.destination);
-    }
-
-    function toggleAudio() {
-      if (!audioCtx) {
-        initSynthAudio();
-      }
-
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-
-      if (!isAudioPlaying) {
-        masterGain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 2.5);
-        isAudioPlaying = true;
-        btnAudio.classList.add('active');
-        document.getElementById('audio-icon').textContent = '🔊';
-        document.getElementById('audio-text').textContent = 'Vibe On';
-        showToast('⚡ Ultra Gaming Electric Synth Playing');
-      } else {
-        masterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
-        isAudioPlaying = false;
-        btnAudio.classList.remove('active');
-        document.getElementById('audio-icon').textContent = '🔇';
-        document.getElementById('audio-text').textContent = 'Vibe Off';
-        showToast('Ambiance Muted');
-      }
-    }
-
-    btnAudio.addEventListener('click', toggleAudio);
 
     // =========================================================
     // 8. ZERO CELEBRATION EXPLOSION
